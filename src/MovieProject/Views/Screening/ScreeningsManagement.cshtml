@@ -1,0 +1,82 @@
+﻿@{
+    Layout = null;
+}
+
+<toaster-container toaster-options="{'close-button':true }"></toaster-container>
+<div class="row" ng-init="initFunctions()" cg-busy="[ getTheatresPromise ]">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Screening management</h4>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <md-input-container class="md-block">
+                                        <label>Select theatre</label>
+                                        <md-select placeholder="Select the theatre" ng-model="theatre">
+                                            <md-option ng-repeat="th in theatres" value="{{ th.id }}">{{ th.title }}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <md-input-container class="md-block">
+                                        <label>Select movie</label>
+                                        <md-select placeholder="Select the movie" ng-model="film">
+                                            <md-option ng-repeat="f in films" value="{{ f.id }}">{{ f.title }}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <md-datepicker ng-model="minDate" md-placeholder="Enter start date"></md-datepicker>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <md-datepicker ng-model="maxDate" md-placeholder="Enter end date"></md-datepicker>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <md-input-container class="md-block" flex-gt-sm="">
+                                        <label>Box office</label>
+                                        <input ng-model="boxOffice" />
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <md-input-container class="md-block" flex-gt-sm="">
+                                        <label>Amount of people</label>
+                                        <input ng-model="amountOfPeople" />
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <md-button ng-click="submitTheatreInformation()" class="md-raised md-primary pull-right">Submit</md-button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12" style="margin-top: 20px;">
+                                    <form ng-submit="chooseFile()">
+                                        <input id="exportToXmlFileInput" type="file" fileread="requestToXml" />
+                                    </form>
+                                </div>
+                                <div class="col-xs-12" style="margin-top: 20px;">
+                                    <md-button ng-disabled="!file" ng-click="exportToXmlFile()" class="md-raised md-warn pull-right">Export</md-button>
+                                    <md-button ng-disabled="!file" ng-click="importFromXmlFile()" class="md-raised md-warn pull-right">Import</md-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

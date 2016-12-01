@@ -1,0 +1,54 @@
+﻿@using System.Collections.Generic
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+<div class="row">
+    <div class="col-xs-12 col-md-offset-3 col-md-6">
+        <section>
+            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Email</label>
+                            <input  asp-for="Email" />
+                        </md-input-container>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Password</label>
+                            <input asp-for="Password" />
+                        </md-input-container>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input type="checkbox" asp-for="RememberMe" />
+                        &nbsp;
+                        <label>
+                            Remember me?
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <md-button type="submit" class="md-raised md-primary pull-right">Log in</md-button>
+                    </div>
+                </div>
+                <p>
+                    <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+                </p>
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

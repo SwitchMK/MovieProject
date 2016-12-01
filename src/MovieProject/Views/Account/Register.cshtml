@@ -1,0 +1,45 @@
+﻿@model RegisterViewModel
+
+<div class="row">
+    <div class="col-xs-12 col-md-offset-3 col-md-6">
+        <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+            <hr />
+            <div class="form-group">
+                <div class="col-md-10">
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Email</label>
+                        <input asp-for="Email">
+                    </md-input-container>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Password</label>
+                        <input asp-for="Password">
+                    </md-input-container>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Confirm password</label>
+                        <input asp-for="ConfirmPassword">
+                    </md-input-container>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <md-button type="submit" class="md-raised md-primary pull-right">Register</md-button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

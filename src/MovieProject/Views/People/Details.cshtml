@@ -1,0 +1,103 @@
+﻿@{
+    Layout = null;
+}
+
+<style>
+    .image-content {
+        padding: 5px;
+        position: relative;
+    }
+
+    .person-image {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+<div ng-init="getPersonDetails()" cg-busy="[ getFilmDetailsPromise ]">
+    <div class="row">
+        <div class="col-sm-4 col-md-3">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading image-content">
+                            <div class="middle-align">
+                                <img ng-src="{{ person.picturePath }}" class="img-responsive person-image" />
+                            </div>
+                        </div>
+                        <table class="table table-responsive">
+                            <tr>
+                                <th>Full name</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        {{ person.fullName }}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Short name</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        {{ person.shortName }}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Date of birth</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        {{ person.dateOfBirth | date: 'longDate' }}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Country</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        {{ person.country }}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr ng-show="person.careers.length > 0">
+                                <th>Occupation</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        <li ng-repeat="career in person.careers">
+                                            {{ career }}
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8 col-md-9">
+            <div class="row">
+                <div ng-show="person.biography" class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>Biography</h4>
+                        </div>
+                        <div class="panel-body">
+                            <p>{{ person.biography }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>Filmography</h4>
+                        </div>
+                        <table class="table">
+                            <tr ng-repeat="film in person.films">
+                                <td><a ng-click="getFilmDetails(film.id)" href="/#/films/{{film.id}}">{{ film.title }} ({{ film.yearOfRelease | date: 'yyyy' }})</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

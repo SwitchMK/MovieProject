@@ -1,0 +1,107 @@
+﻿@{ 
+    Layout = null;
+}
+
+<div class="row" ng-init="initFunctions()" cg-busy="[ getFilmTheatresPromise, getFilmsPromise, getTheatresPromise, getFilmsInTheatrePromise ]">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Filters</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>Select period of time</label>
+                        </div>
+                        <div class="form-group">
+                            <md-datepicker ng-model="minDate" md-placeholder="Enter date"></md-datepicker>
+                        </div>
+                        <div class="form-group">
+                            <md-datepicker ng-model="maxDate" md-placeholder="Enter date"></md-datepicker>
+                        </div>
+                        <div class="form-group">
+                            <md-select ng-model="film">
+                                <md-option ng-repeat="f in films" value="{{ f.id }}">{{ f.title }}</md-option>
+                            </md-select>
+                        </div>
+                        <div class="form-group">
+                            <md-button ng-click="getFilmTheatres(minDate, maxDate)" class="md-raised md-primary pull-right">Filter</md-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Theatres</h4>
+                    </div>
+                    <div ng-show="filmTheatres.length == 0 || !filmTheatres" class="panel-body">
+                        <div class="jumbotron text-center">
+                            <h4>Empty</h4>
+                        </div>
+                    </div>
+                    <table ng-show="filmTheatres.length > 0" class="table">
+                        <tr>
+                            <th>Theatre title</th>
+                            <th>Country</th>
+                            <th>Box office in percentage</th>
+                        </tr>
+                        <tr ng-repeat="theatre in filmTheatres">
+                            <td>{{ theatre.title }}</td>
+                            <td>{{ theatre.country }}</td>
+                            <td>{{ (theatre.percentageOfBoxOffice | number: 2) }} {{ theatre.percentageOfBoxOffice ? '%' : 'Unknown' }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Filters</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>Select the day of screenings</label>
+                        </div>
+                        <div class="form-group">
+                            <md-datepicker ng-model="day" md-placeholder="Enter date"></md-datepicker>
+                        </div>
+                        <div class="form-group">
+                            <label>Select the theatres</label>
+                        </div>
+                        <div class="form-group">
+                            <md-select ng-model="theatre">
+                                <md-option ng-repeat="th in theatres" value="{{ th.id }}">{{ th.title }}</md-option>
+                            </md-select>
+                        </div>
+                        <div class="form-group">
+                            <md-button ng-click="getFilmsInTheatre()" class="md-raised md-primary pull-right">Filter</md-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Screenings</h4>
+                    </div>
+                    <div ng-show="filmsInTheatre.length == 0" class="panel-body">
+                        <div class="jumbotron text-center">
+                            <h4>Empty</h4>
+                        </div>
+                    </div>
+                    <table ng-show="filmsInTheatre.length > 0" class="table">
+                        <tr ng-repeat="film in filmsInTheatre">
+                            <td><a href="/#/films/{{ film.id }}">{{ film.title }}</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

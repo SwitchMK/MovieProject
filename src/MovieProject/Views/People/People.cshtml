@@ -1,0 +1,32 @@
+﻿@{
+    Layout = null;
+}
+
+<style>
+    td {
+        text-align: left;
+    }
+</style>
+
+<div class="row" ng-init="getPeople()" cg-busy="[ getPeoplePromise ]">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading poster-heading">
+                </div>
+                <table class="table table-responsive">
+                    <tbody>
+                        <tr ng-repeat="person in people">
+                            <td class="vertical-align col-md-1 col-sm-2 col-xs-4">
+                                <img ng-src="{{ person.smallPicturePath }}" class="img-responsive" alt="Movie Poster">
+                            </td>
+                            <td class="vertical-align">
+                                <h4><a href="/#/people/{{ person.id }}">{{ person.shortName }} ({{ person.dateOfBirth | date: 'yyyy' }})</a></h4>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html ng-app="movieApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MovieProject</title>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap-fileinput/css/fileinput.css" />
+        <link rel="stylesheet" href="~/lib/angular-busy/dist/angular-busy.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap-star-rating/css/star-rating.css" />
+        <link rel="stylesheet" href="~/lib/angular-material/angular-material.css" />
+        <link rel="stylesheet" href="~/lib/AngularJS-Toaster/toaster.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/angular/angular.js"></script>
+    </environment>
+
+    @RenderSection("Styles", required: false)
+
+    @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-controller="Home" asp-action="Index" target="_self" class="navbar-brand"><span class="glyphicon glyphicon-film"></span></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/#/" target="_self">Films</a></li>
+                    <li><a href="/#/people" target="_self">People</a></li>
+                    <li><a href="/#/screenings" target="_self">Screenings</a></li>
+                    <li><a href="/#/screenings/management" target="_self">Screenings management</a></li>
+                </ul>
+                @await Html.PartialAsync("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content" ng-cloak>
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2016 - MovieProject</p>
+        </footer>
+    </div>
+
+    <environment names="Development">
+        <script src="~/lib/angular-route/angular-route.js"></script>
+        <script src="~/lib/angular-bootstrap/ui-bootstrap.js"></script>
+        <script src="~/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="~/lib/angular-busy/dist/angular-busy.js"></script>
+        <script src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
+        <script src="~/lib/angular-animate/angular-animate.js"></script>
+        <script src="~/lib/angular-aria/angular-aria.js"></script>
+        <script src="~/lib/angular-messages/angular-messages.js"></script>
+        <script src="~/lib/angular-material/angular-material.js"></script>
+        <script src="~/lib/AngularJS-Toaster/toaster.js"></script>
+        <script src="~/lib/bootstrap-fileinput/js/fileinput.js"></script>
+        <script src="~/js/movie.app.js"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

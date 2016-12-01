@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="row" ng-init="getFilms()" cg-busy="[ getFilmsPromise, rateMoviePromise ]">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading poster-heading">
+                </div>
+                <table class="table table-responsive">
+                    <tbody>
+                        <tr ng-repeat="film in films">
+                            <td class="vertical-align">
+                                <img ng-src="{{ film.smallPicturePath }}" class="img-responsive" alt="Movie Poster">
+                            </td>
+                            <td class="vertical-align">
+                                <h4><a href="/#/films/{{film.id}}">{{ film.title }} ({{ film.yearOfRelease | date: 'yyyy' }})</a></h4>
+                            </td>
+                            <td class="vertical-align total-rating">
+                                <h3>
+                                    <span ng-show="film.totalRating" style="color: orange" class="label label-default"><span class="glyphicon glyphicon-star"></span> {{ film.totalRating | number: 1 }}</span>
+                                </h3>
+                            </td>
+                            <td class="vertical-align rating">
+                                <md-button ng-click="selectRateableMovie(film)" data-toggle="modal" data-target="#rating-model" class="md-raised md-warn">Rate</md-button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="rating-model" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <input id="input-id" type="text" class="rating" data-size="xs">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="rateMovie()">Rate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

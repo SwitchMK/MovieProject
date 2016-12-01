@@ -1,0 +1,159 @@
+﻿@{
+    Layout = null;
+}
+
+<style>
+    .image-content {
+        padding: 5px;
+        position: relative;
+    }
+
+    .movie-image {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .feedback-btn {
+        margin-top: 10px;
+    }
+</style>
+
+<div ng-init="getFilmDetails()" cg-busy="[ getFilmDetailsPromise, getFeedbacksPromise, leaveFeedbackPromise ]">
+    <div class="row">
+        <div class="col-sm-4 col-md-3">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading image-content">
+                            <div class="middle-align">
+                                <img ng-src="{{ film.picturePath }}" class="img-responsive movie-image" />
+                            </div>
+                        </div>
+                        <table class="table table-responsive">
+                            <tr ng-show="film.directors.length > 0">
+                                <th>Directed by</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        <li ng-repeat="director in film.directors">
+                                            <a href="/#/people/{{director.id}}">{{ director.name }}</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr ng-show="film.producers.length > 0">
+                                <th>Produced by</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        <li ng-repeat="producer in film.producers">
+                                            <a href="/#/people/{{producer.id}}">{{ producer.name }}</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr ng-show="film.writers.length > 0">
+                                <th>Screenplay by</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        <li ng-repeat="writer in film.writers">
+                                            <a href="/#/people/{{writer.id}}">{{ writer.name }}</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr ng-show="film.stars.length > 0">
+                                <th>Starring</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        <li ng-repeat="star in film.stars">
+                                            <a href="/#/people/{{star.id}}">{{ star.name }}</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr ng-show="film.composers.length > 0">
+                                <th>Music by</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        <li ng-repeat="composer in film.composers">
+                                            <a href="/#/people/{{composer.id}}">{{ composer.name }}</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Distributed by</th>
+                                <td>{{ film.distributor }}</td>
+                            </tr>
+                            <tr>
+                                <th>Release date</th>
+                                <td>
+                                    {{ film.yearOfRelease | date: 'yyyy' }}
+                                </td>
+                            </tr>
+                            <tr ng-show="film.countries.length > 0">
+                                <th>Country</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        <li ng-repeat="country in film.countries">
+                                            {{ country }}
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Budget</th>
+                                <td>{{ film.budget | currency:"$":0 }}</td>
+                            </tr>
+                            <tr>
+                                <th>Box office</th>
+                                <td>{{ film.boxOffice | currency:"$":0 }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8 col-md-9">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>Plot</h4>
+                        </div>
+                        <div class="panel-body">
+                            <p>{{ film.plot }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <md-input-container class="md-block">
+                                <label>Leave your comment</label>
+                                <textarea rows="5" ng-model="feedback"></textarea>
+                            </md-input-container>
+                            <md-button ng-click="leaveFeedback(film.id)" class="md-raised md-primary pull-right">Leave</md-button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12" ng-show="feedbacks.length > 0">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div ng-repeat="f in feedbacks" class="panel panel-warning">
+                                <div class="panel-heading">
+                                    {{ f.userName }}
+                                </div>
+                                <div class="panel-body">
+                                    {{ f.text }}
+                                </div>
+                                <div class="panel-footer">
+                                    {{ f.dateOfPublication | date: 'longDate' }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
