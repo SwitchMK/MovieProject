@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background: 
 }
 
 /* Wrapping element */
@@ -40,4 +41,65 @@
   .carousel-caption {
     display: none
   }
+}
+
+.wrapper {
+    margin-top: 20px;
+}
+
+.release-date {
+    width: 108px;
+}
+
+.description-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.vertical-align {
+    vertical-align: middle !important;
+}
+
+.middle-align {
+    vertical-align: middle !important;
+    text-align: center !important;
+}
+
+.rating .glyphicon {
+    font-size: 1.5em;
+}
+
+.total-rating .glyphicon {
+    color: orange;
+    font-size: 2em;
+}
+
+a {
+    cursor: pointer;
+}
+
+.rate-btn span {
+    color: orange;
+}
+
+.rate-btn:hover {
+    background-color: orange !important;
+}
+
+.rate-btn:hover span {
+    color: white;
+}
+
+.participants-ul {
+    padding: 0px;
+}
+
+.participants-ul li {
+    list-style-type: none;
+}
+
+.poster-heading {
+    height: 450px !important;
+    background-position: center;
+    background-image: url('/images/posters/fb-and-wft.jpg') !important;
 }

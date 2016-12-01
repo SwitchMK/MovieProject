@@ -13,6 +13,57 @@
         <link rel="stylesheet" href="~/lib/angular-material/angular-material.css" />
         <link rel="stylesheet" href="~/lib/AngularJS-Toaster/toaster.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+
+        <style>
+            .navbar {
+                background-color: black;
+                border-bottom: none;
+                opacity: 0.80;
+            }
+
+            .navbar-fixed-bottom {
+                background-color: #323232 !important;
+                border-top: orangered solid 3px !important;
+                opacity: 1;
+            }
+
+            .navbar-nav li {
+                border-bottom: transparent 4px solid;
+            }
+
+            .navbar-nav li:hover {
+                border-bottom: orangered 4px solid;
+            }
+
+            .navbar-nav li:hover a {
+                color: orangered !important;
+            }
+
+            .navbar-nav a, .navbar-nav button {
+                 color: gray !important;
+            }
+
+            .navbar-nav a:active, a:focus {
+                 outline: 0;
+            }
+
+            .navbar-header a, .navbar-header a:hover {
+                color: orangered !important;
+            }
+
+            .navbar-toggle {
+                border: none;
+            }
+
+            .navbar-toggle:hover, .navbar-toggle:active, .navbar-toggle:focus {
+                border: none !important;
+                background-color: transparent !important;
+            }
+
+            .icon-bar {
+                background-color: orangered !important;
+            }
+        </style>
     </environment>
 
     <environment names="Development">
@@ -35,7 +86,6 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-controller="Home" asp-action="Index" target="_self" class="navbar-brand"><span class="glyphicon glyphicon-film"></span></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -51,7 +101,9 @@
     <div class="container body-content" ng-cloak>
         @RenderBody()
         <hr />
-        <footer>
+    </div>
+    <div class="navbar footer navbar-fixed-bottom">
+        <footer class="text-center" style="color: orangered; padding-top: 10px">
             <p>&copy; 2016 - MovieProject</p>
         </footer>
     </div>
