@@ -3,6 +3,12 @@
 
     var app = angular.module('movieApp', ['ngRoute', 'cgBusy', 'ngMaterial', 'toaster', 'ngAnimate']);
 
+    app.value('cgBusyDefaults', {
+        message: 'Loading Stuff',
+        templateUrl: '/js/templates/loadingTemplate.html',
+        minDuration: 1000
+    });
+
     app.config(function ($routeProvider) {
         $routeProvider
         .when("/", {

@@ -69,7 +69,7 @@
                 Path: $scope.file
             };
 
-            $scope.exportToXmlFilePromise = screeningsService
+            $scope.importFromXmlFilePromise = screeningsService
                 .importFromXmlFile(request)
                 .then(function (response) {
                     if (response.data.status == "Success")
