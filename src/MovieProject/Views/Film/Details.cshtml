@@ -128,11 +128,17 @@
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <md-input-container class="md-block">
-                                <label>Leave your comment</label>
-                                <textarea rows="5" ng-model="feedback"></textarea>
-                            </md-input-container>
-                            <md-button ng-click="leaveFeedback(film.id)" class="md-raised md-warn pull-right">Leave</md-button>
+                            <form name="feedbackForm" ng-submit="feedbackForm.$valid && leaveFeedback(film.id)" novalidate>
+                                <md-input-container class="md-block">
+                                    <label>Leave your comment</label>
+                                    <textarea md-maxlength="400" required name="feedback" rows="5" ng-model="feedback"></textarea>
+                                    <div ng-messages="feedbackForm.feedback.$error">
+                                        <div ng-message="required">This field is required.</div>
+                                        <div ng-message="md-maxlength">The message should be less than 400 characters.</div>
+                                    </div>
+                                </md-input-container>
+                                <md-button type="submit" class="md-raised md-warn pull-right">Leave</md-button>
+                            </form>
                         </div>
                     </div>
                 </div>
