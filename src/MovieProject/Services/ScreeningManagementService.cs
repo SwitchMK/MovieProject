@@ -20,7 +20,7 @@ namespace MovieProject.Services
 
         private readonly string _notNullMessage = "Submitting failed! Values cannot be null, please fill empty fields.";
         private readonly string _successAddingMessage = "Successfully submitted! Entity has been successfully added.";
-        private readonly string _isMovieAlreadyOnScreen = "Submitting failed! Selected movie is already on screen.";
+        private readonly string _isMovieAlreadyOnScreen = "Submitting failed! Theare is a screening of another movie during this time.";
         private readonly string _successUpdatingMessage = "Successfully submitted! Entity has been successfully updated.";
         private readonly string _boxOfficeIsExceeded = "Submitting failed! Box office has exceeded total box office.";
         private readonly string _successExportToXml = "Successfully exported data to XML file.";
@@ -72,6 +72,27 @@ namespace MovieProject.Services
             return await ValidateAndSubmitAsync(request);
         }
 
+        public async Task<UpdateFilmTheatreResponse> ExportToXmlFileAsync(ExportToFileRequest request)
+        {
+            await SaveStructuredXML(request);
+
+            return GetUpdateFilmThatreResponse(_successExportToXml, SubmitStatus.Success);
+        }
+
+        public async Task<UpdateFilmTheatreResponse> ImportFromXmlFile(string path)
+        {
+            var doc = new XmlDocument();
+            doc.Load(path);
+
+            var responses = GetParsedXMLData(doc);
+
+            var readyForDb = await GetReadyForDbData(responses);
+
+            await _filmTheatreRepository.AddFilmTheatresAsync(GetFilmTheatres(readyForDb));
+
+            return GetUpdateFilmThatreResponse($"Submitted {readyForDb.Count()} records from {responses.Count()}.", SubmitStatus.Info);
+        }
+
         private async Task<UpdateFilmTheatreResponse> ValidateAndSubmitAsync(UpdateFilmTheatreRequest request)
         {
             if (IsNotAllPropertiesInitialized(request))
@@ -116,8 +137,8 @@ namespace MovieProject.Services
         private bool IsMovieAlreadyOnScreen(UpdateFilmTheatreRequest request, FilmTheatre[] filmTheatres)
         {
             return filmTheatres.Any(p => (p.StartDistributionDate < request.EndDistributionDate &&
-                request.StartDistributionDate < p.EndDistributionDate) && (request.FilmId == p.FilmId) &&
-                (request.TheatreId == p.TheatreId));
+                request.StartDistributionDate < p.EndDistributionDate) &&
+                (request.TheatreId == p.TheatreId) && (request.FilmId != p.FilmId));
         }
 
         private bool IsNotAllPropertiesInitialized(UpdateFilmTheatreRequest request)
@@ -158,13 +179,6 @@ namespace MovieProject.Services
                 Message = message,
                 Status = status.ToString()
             };
-        }
-
-        public async Task<UpdateFilmTheatreResponse> ExportToXmlFileAsync(ExportToFileRequest request)
-        {
-            await SaveStructuredXML(request);
-
-            return GetUpdateFilmThatreResponse(_successExportToXml, SubmitStatus.Success);
         }
 
         private async Task SaveStructuredXML(ExportToFileRequest request)
@@ -225,12 +239,9 @@ namespace MovieProject.Services
             doc.Save(request.Path);
         }
 
-        public async Task<UpdateFilmTheatreResponse> ImportFromXmlFile(string path)
+        private IEnumerable<ImportFromFileResponse> GetParsedXMLData(XmlDocument doc)
         {
-            var doc = new XmlDocument();
-            doc.Load(path);
-
-            var items = new List<Dictionary<string, string>>();
+            var responses = new List<ImportFromFileResponse>();
 
             foreach (var node in doc.DocumentElement.ChildNodes)
             {
@@ -241,21 +252,13 @@ namespace MovieProject.Services
                     xmlData.Add((innerNode as XmlNode).Name, (innerNode as XmlNode).InnerText);
                 }
 
-                items.Add(xmlData);
+                responses.Add(ValidateDataFromXml(xmlData));
             }
 
-            var responses = new List<ImportFromFileResponse>();
-
-            items.ForEach(item => responses.Add(ValidateDataFromXml(item)));
-
-            var readyForDb = await GetReadyForDbData(responses);
-
-            await _filmTheatreRepository.AddFilmTheatresAsync(GetFilmTheatres(readyForDb));
-
-            return GetUpdateFilmThatreResponse($"Submitted {readyForDb.Count()} records from {items.Count()}.", SubmitStatus.Info);
+            return responses;
         }
 
-        private async Task<IEnumerable<ImportFromFileResponse>> GetReadyForDbData(List<ImportFromFileResponse> responses)
+        private async Task<IEnumerable<ImportFromFileResponse>> GetReadyForDbData(IEnumerable<ImportFromFileResponse> responses)
         {
             var uniqueResponses = responses.Where(r => !responses.Any(ar => r.FilmId != ar.FilmId && r.TheatreId == ar.TheatreId &&
                 (r.StartDistributionDate <= ar.EndDistributionDate && ar.StartDistributionDate <= r.EndDistributionDate)));

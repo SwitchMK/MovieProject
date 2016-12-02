@@ -13,55 +13,85 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <md-input-container class="md-block">
-                                        <label>Select theatre</label>
-                                        <md-select placeholder="Select the theatre" ng-model="theatre">
-                                            <md-option ng-repeat="th in theatres" value="{{ th.id }}">{{ th.title }}</md-option>
-                                        </md-select>
-                                    </md-input-container>
+                            <form role="form" name="screeningsForm" ng-submit="screeningsForm.$valid && submitTheatreInformation()" novalidate>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <md-input-container class="md-block">
+                                            <label>Select theatre</label>
+                                            <md-icon md-font-set="material-icons">event_seat</md-icon>
+                                            <md-select name="theatre" required placeholder="Select the theatre" ng-model="theatre">
+                                                <md-option ng-repeat="th in theatres" value="{{ th.id }}">{{ th.title }}</md-option>
+                                            </md-select>
+                                            <div ng-messages="screeningsForm.theatre.$error">
+                                                <div ng-message="required">This is required!</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <md-input-container class="md-block">
-                                        <label>Select movie</label>
-                                        <md-select placeholder="Select the movie" ng-model="film">
-                                            <md-option ng-repeat="f in films" value="{{ f.id }}">{{ f.title }}</md-option>
-                                        </md-select>
-                                    </md-input-container>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <md-input-container class="md-block">
+                                            <label>Select movie</label>
+                                            <md-icon md-font-set="material-icons">video_label</md-icon>
+                                            <md-select name="film" required placeholder="Select the movie" ng-model="film">
+                                                <md-option ng-repeat="f in films" value="{{ f.id }}">{{ f.title }}</md-option>
+                                            </md-select>
+                                            <div ng-messages="screeningsForm.film.$error">
+                                                <div ng-message="required">This is required!</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-6">
-                                    <md-datepicker ng-model="minDate" md-placeholder="Enter start date"></md-datepicker>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <md-input-container class="md-block">
+                                            <label>Enter start date</label>
+                                            <md-datepicker name="minDate" required ng-model="minDate" md-placeholder="Enter start date"></md-datepicker>
+                                            <div ng-messages="screeningsForm.minDate.$error" md-auto-hide="false">
+                                                <div ng-message="required">This is required!</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        <md-input-container class="md-block">
+                                            <label>Enter end date</label>
+                                            <md-datepicker name="maxDate" required ng-model="maxDate" md-placeholder="Enter end date"></md-datepicker>
+                                            <div ng-messages="screeningsForm.maxDate.$error">
+                                                <div ng-message="required">This is required!</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-6">
-                                    <md-datepicker ng-model="maxDate" md-placeholder="Enter end date"></md-datepicker>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <md-input-container class="md-block" flex-gt-sm="">
+                                            <label>Box office</label>
+                                            <md-icon md-font-set="material-icons">euro_symbol</md-icon>
+                                            <input name="boxOffice" required ng-model="boxOffice" />
+                                            <div ng-messages="screeningsForm.boxOffice.$error" md-auto-hide="false">
+                                                <div ng-message="required">This is required!</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <md-input-container class="md-block" flex-gt-sm="">
-                                        <label>Box office</label>
-                                        <input ng-model="boxOffice" />
-                                    </md-input-container>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <md-input-container class="md-block" flex-gt-sm="">
+                                            <label>Amount of people</label>
+                                            <md-icon md-font-set="material-icons">group</md-icon>
+                                            <input name="amountOfPeople" required ng-model="amountOfPeople" />
+                                            <div ng-messages="screeningsForm.amountOfPeople.$error">
+                                                <div ng-message="required">This is required!</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <md-input-container class="md-block" flex-gt-sm="">
-                                        <label>Amount of people</label>
-                                        <input ng-model="amountOfPeople" />
-                                    </md-input-container>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <md-button type="submit" class="md-raised md-warn pull-right">Submit</md-button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <md-button ng-click="submitTheatreInformation()" class="md-raised md-warn pull-right">Submit</md-button>
-                                </div>
-                            </div>
+                            </form>
                             <div class="row">
                                 <div class="col-xs-12" style="margin-top: 20px;">
                                     <form ng-submit="chooseFile()">

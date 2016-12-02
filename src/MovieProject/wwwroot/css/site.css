@@ -103,3 +103,57 @@ a {
     background-position: center;
     background-image: url('/images/posters/fb-and-wft.jpg') !important;
 }
+
+.navbar {
+    background-color: black;
+    border-bottom: none;
+    opacity: 0.80;
+}
+
+.navbar-fixed-bottom {
+    background-color: #323232 !important;
+    border-top: gray solid 1px !important;
+    opacity: 1;
+}
+
+.navbar-nav li {
+    border-bottom: transparent 4px solid;
+}
+
+.navbar-nav li:hover {
+    border-bottom: orangered 4px solid;
+}
+
+.navbar-nav li:hover a, .navbar-nav li:hover button {
+    color: orangered !important;
+}
+
+.navbar-nav a, .navbar-nav button {
+    color: gray !important;
+    background-color: transparent;
+}
+
+.navbar-nav a:active, a:focus, .navbar-nav button:active, .navbar-nav button:focus {
+    outline: 0 !important;
+}
+
+.navbar-header a, .navbar-header a:hover {
+    color: orangered !important;
+}
+
+.navbar-toggle {
+    border: none;
+}
+
+.navbar-toggle:hover, .navbar-toggle:active, .navbar-toggle:focus {
+    border: none !important;
+    background-color: transparent !important;
+}
+
+.navbar-toggle:hover .icon-bar, .navbar-toggle:active .icon-bar, .navbar-toggle:focus .icon-bar {
+    background-color: orangered !important;
+}
+
+.icon-bar {
+    background-color: gray !important;
+}
