@@ -123,7 +123,7 @@ namespace MovieProject.Services
             double? filmPersonalRating,
             FilmPeople[] people,
             Distributor distributor,
-            FilmCountry[] countries)
+            IEnumerable<FilmCountry> countries)
         {
             return new FullFilmDetailsResponse
             {

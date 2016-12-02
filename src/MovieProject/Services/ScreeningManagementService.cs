@@ -203,8 +203,8 @@ namespace MovieProject.Services
         }
 
         private void SaveToXML(
-            List<long> filmIndentifiers,
-            List<long> theatreIndentifiers,
+            IEnumerable<long> filmIndentifiers,
+            IEnumerable<long> theatreIndentifiers,
             ExportToFileRequest request)
         {
             var doc = new XmlDocument();

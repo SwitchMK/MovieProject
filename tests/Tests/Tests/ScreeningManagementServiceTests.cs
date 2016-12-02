@@ -88,7 +88,7 @@ namespace Tests
         public async Task ScreeningManagementService_SubmitTheatreInformationAsync_MovieAlreadyOnScreen_Error()
         {
             var status = "Error";
-            var message = "Submitting failed! Selected movie is already on screen.";
+            var message = "Submitting failed! Theare is a screening of another movie during this time.";
 
             MockFilmTheatreRepository();
             MockFilmTheatreRepository_GetFilmTheatresAsync_LongOverload();
