@@ -79,7 +79,7 @@ namespace MovieProject.Services
             return GetUpdateFilmThatreResponse(_successExportToXml, SubmitStatus.Success);
         }
 
-        public async Task<UpdateFilmTheatreResponse> ImportFromXmlFile(string path)
+        public async Task<UpdateFilmTheatreResponse> ImportFromXmlFileAsync(string path)
         {
             var doc = new XmlDocument();
             doc.Load(path);

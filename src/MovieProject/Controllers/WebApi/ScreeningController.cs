@@ -80,7 +80,7 @@ namespace MovieProject.Controllers.WebApi
         [HttpPost]
         public async Task<UpdateFilmTheatreResponse> ImportFromXmlFile([FromBody] ImportFromFileRequest request)
         {
-            return await _screeningManagementService.ImportFromXmlFile(request.Path);
+            return await _screeningManagementService.ImportFromXmlFileAsync(request.Path);
         }
     }
 }

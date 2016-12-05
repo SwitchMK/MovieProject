@@ -11,6 +11,6 @@ namespace MovieProject.Services.Interfaces
         Task<IEnumerable<FilmListItemResponse>> GetFilmsInTheatreAsync(FilmsInTheatreRequest filmsInTheatreRequest);
         Task<UpdateFilmTheatreResponse> SubmitTheatreInformationAsync(UpdateFilmTheatreRequest request);
         Task<UpdateFilmTheatreResponse> ExportToXmlFileAsync(ExportToFileRequest request);
-        Task<UpdateFilmTheatreResponse> ImportFromXmlFile(string path);
+        Task<UpdateFilmTheatreResponse> ImportFromXmlFileAsync(string path);
     }
 }

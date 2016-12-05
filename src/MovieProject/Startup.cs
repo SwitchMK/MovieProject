@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MovieProject.Models;
-using MovieProject.Services;
 using Entities.Contexts;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
