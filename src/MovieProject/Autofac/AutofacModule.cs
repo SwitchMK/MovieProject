@@ -47,6 +47,9 @@ namespace MovieProject.Autofac
             builder.RegisterType<TheatreRepository>()
                 .As<ITheatreRepository>();
 
+            builder.RegisterType<UserRepository>()
+                .As<IUserRepository>();
+
             // Services
             builder.RegisterType<FilmManagementService>()
                 .As<IFilmManagementService>();
@@ -56,6 +59,9 @@ namespace MovieProject.Autofac
 
             builder.RegisterType<ScreeningManagementService>()
                 .As<IScreeningManagementService>();
+
+            builder.RegisterType<UserService>()
+                .As<IUserService>();
         }
     }
 }

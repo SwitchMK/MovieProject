@@ -42,5 +42,9 @@
             templateUrl: 'screening/screeningsmanagement',
             controller: 'screeningsManagementController'
         })
+        .when('/admin', {
+            templateUrl: 'admin/administration',
+            controller: 'adminController'
+        })
     });
 })();

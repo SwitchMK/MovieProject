@@ -260,7 +260,7 @@ namespace MovieProject.Services
 
         private async Task<IEnumerable<ImportFromFileResponse>> GetReadyForDbData(IEnumerable<ImportFromFileResponse> responses)
         {
-            var uniqueResponses = responses.Where(r => !responses.Any(ar => r.FilmId != ar.FilmId && r.TheatreId == ar.TheatreId &&
+            var uniqueResponses = responses.Where(r => !responses.Any(ar => r != ar && r.TheatreId == ar.TheatreId &&
                 (r.StartDistributionDate <= ar.EndDistributionDate && ar.StartDistributionDate <= r.EndDistributionDate)));
 
             var filmTheatres = await _filmTheatreRepository.GetFilmTheatresAsync();

@@ -19,8 +19,12 @@
                                 <h4><a href="/#/films/{{film.id}}">{{ film.title }} ({{ film.yearOfRelease | date: 'yyyy' }})</a></h4>
                             </td>
                             <td class="vertical-align total-rating">
-                                <h3>
-                                    <span ng-show="film.totalRating" style="color: orange" class="label label-default"><span class="glyphicon glyphicon-star"></span> {{ film.totalRating | number: 1 }}</span>
+                                <h3 style="margin-top: auto; margin-bottom: auto">
+                                    <span style="display: inline-block; vertical-align: middle" class="glyphicon glyphicon-star"></span>
+                                    <span class="label label-default" ng-show="film.totalRating" 
+                                          style="color: orange; display: inline-block; vertical-align: middle;">
+                                        {{ film.totalRating | number: 1 }}
+                                    </span>
                                 </h3>
                             </td>
                             <td class="vertical-align rating">

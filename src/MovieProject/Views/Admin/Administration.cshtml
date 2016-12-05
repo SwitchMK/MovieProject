@@ -1,0 +1,63 @@
+﻿@{ 
+    Layout = null;
+}
+
+<div class="row" ng-init="getUsers()" cg-busy="[ getUsersPromise ]">
+    <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: black; opacity: 0.75;">
+                <h4 style="color: gray">Users</h4>
+            </div>
+            <div class="panel-body">
+                <md-list-item ng-click="selectUser(user)" ng-repeat="user in users">
+                    <md-icon md-font-set="material-icons">group</md-icon>
+                    <p> {{ user.userName }} </p>
+                </md-list-item>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: black; opacity: 0.75;">
+                <h4 style="color: gray">Additional info</h4>
+            </div>
+            <div class="panel-body">
+                <md-tabs md-border-bottom="" md-dynamic-height="">
+                    <md-tab label="User information">
+                        <md-content class="md-padding">
+                            <h3>{{ selectedUser.userName }}</h3>
+                            <table class="table table-responsive">
+                                <tr>
+                                    <th>User name</th>
+                                    <td>{{ selectedUser.userName }}</td>
+                                </tr>
+                                <tr>
+                                    <th>User email</th>
+                                    <td>{{ selectedUser.email }}</td> 
+                                </tr>
+                            </table>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="User roles">
+                        <md-content class="md-padding">
+                            <md-list-item ng-click="null" ng-repeat="role in selectedUser.roles">
+                                <md-icon md-font-set="material-icons">face</md-icon>
+                                <p> {{ role.name }} </p>
+                                <md-button ng-click="deleteRole(role.name)"><md-icon md-font-set="material-icons">delete</md-icon></md-button>
+                            </md-list-item>
+                            <md-divider></md-divider>
+                            <div ng-show="remainingRoles.length > 0">
+                                <md-content class="md-padding">
+                                    <md-select ng-model="roleToAdd" style="z-index: 100000 !important">
+                                        <md-option ng-repeat="role in remainingRoles" value="{{ role.name }}">{{ role.name }}</md-option>
+                                    </md-select>
+                                </md-content>
+                                <md-button class="md-raised pull-right" ng-click="addRole()">Add role</md-button>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </div>
+        </div>
+    </div>
+</div>

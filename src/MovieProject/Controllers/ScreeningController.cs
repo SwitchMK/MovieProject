@@ -11,6 +11,7 @@ namespace MovieProject.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Editor,Administrator")]
         public IActionResult ScreeningsManagement()
         {
             return View();

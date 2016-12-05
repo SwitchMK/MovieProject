@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="~/lib/bootstrap-star-rating/css/star-rating.css" />
         <link rel="stylesheet" href="~/lib/angular-material/angular-material.css" />
         <link rel="stylesheet" href="~/lib/AngularJS-Toaster/toaster.css" />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
 
@@ -23,8 +23,6 @@
     </environment>
 
     @RenderSection("Styles", required: false)
-
-    @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -42,7 +40,14 @@
                     <li><a href="/#/" target="_self">Films</a></li>
                     <li><a href="/#/people" target="_self">People</a></li>
                     <li><a href="/#/screenings" target="_self">Screenings</a></li>
-                    <li><a href="/#/screenings/management" target="_self">Screenings management</a></li>
+                    @if (User.IsInRole("Editor") || User.IsInRole("Administrator"))
+                    {
+                        <li><a href="/#/screenings/management" target="_self">Screenings management</a></li>
+                    }
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <li><a href="/#/admin" target="_self">Administrator</a></li>
+                    }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
