@@ -1,5 +1,4 @@
 ﻿/// <autosync enabled="true" />
-/// <reference path="js/common/movie.bootstrap.file.input.js" />
 /// <reference path="js/controllers/movie.controller.js" />
 /// <reference path="js/controllers/movie.details.controller.js" />
 /// <reference path="js/controllers/people.controller.js" />
