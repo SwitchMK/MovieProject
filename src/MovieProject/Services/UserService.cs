@@ -51,7 +51,7 @@ namespace MovieProject.Services
         public async Task<IEnumerable<RoleResponse>> AddRoleAsync(RoleUserRequest roleUserRequest)
         {
             var user = await _userManager
-                .FindByIdAsync(roleUserRequest.UserId.ToString());
+                .FindByIdAsync(roleUserRequest.UserId);
 
             var role = await _roleManager
                 .FindByNameAsync(roleUserRequest.RoleName);
@@ -64,12 +64,12 @@ namespace MovieProject.Services
 
         public async Task<IEnumerable<RoleResponse>> GetRemainingRolesAsync(UserRequest userRequest)
         {
-            var allRoles = _roleManager.Roles.ToArray();
+            var allRoles = _roleManager.Roles;
             var user = await _userManager.FindByIdAsync(userRequest.UserId);
 
-            var userRoles = (await _userManager.GetRolesAsync(user)).ToArray();
+            var userRoles = await _userManager.GetRolesAsync(user);
 
-            if (userRoles.Length == 0)
+            if (userRoles.Count() == 0)
                 return ToRoleViewModels(allRoles.Select(role => role.Name));
 
             var roles = allRoles
