@@ -40,5 +40,14 @@
                 headers: { 'Content-Type': 'application/json' }
             });
         };
+
+        this.blockUser = function (data) {
+            return $http({
+                method: 'POST',
+                url: url + '/BlockUser',
+                data: data,
+                headers: { 'Content-Type': 'application/json' }
+            });
+        };
     }
 })();

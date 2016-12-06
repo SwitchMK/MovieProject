@@ -45,6 +45,13 @@ namespace MovieProject.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user.IsBlock)
+                {
+                    ModelState.AddModelError(string.Empty, "This user is blocked. Try to sign in with another account.");
+                    return View(model);
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
@@ -82,7 +89,7 @@ namespace MovieProject.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, IsBlock = false };
                 var role = await _roleManager.FindByNameAsync("User");
                 var result = await _userManager.CreateAsync(user, model.Password);
 

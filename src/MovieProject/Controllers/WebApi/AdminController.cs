@@ -42,5 +42,11 @@ namespace MovieProject.Controllers.WebApi
         {
             return await _userService.GetRemainingRolesAsync(userRequest);
         }
+
+        [HttpPost]
+        public async Task<IEnumerable<UserResponse>> BlockUser([FromBody] UserRequest userRequest)
+        {
+            return await _userService.BlockUserAsync(userRequest);
+        }
     }
 }

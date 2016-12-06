@@ -30,7 +30,7 @@
             };
 
             if (roleName == "Administrator") {
-                showConfirm(request);
+                confirmRoleDetaching(request);
             } else {
                 deleteRole(request);
             }
@@ -51,6 +51,17 @@
                     console.error("Something went wrong while adding new role!");
                     console.error(response);
                 });
+        };
+
+        $scope.confirmUserBlocking = function (userId) {
+            var confirm = $mdDialog.confirm()
+                .title('Are your sure, you would like to block this user?')
+                .ok('Yes')
+                .cancel('Cancel');
+
+            $mdDialog.show(confirm).then(function () {
+                blockUser(userId);
+            });
         };
 
         $scope.selectUser = function (user) {
@@ -87,7 +98,7 @@
                 });
         };
 
-        var showConfirm = function (request) {
+        var confirmRoleDetaching = function (request) {
             var confirm = $mdDialog.confirm()
                 .title('Are your sure, you would like to detach administrator role?')
                 .textContent('This user will be limited to her rights after deleting this role.')
@@ -97,6 +108,25 @@
             $mdDialog.show(confirm).then(function () {
                 deleteRole(request);
             });
+        };
+
+        var blockUser = function (userId) {
+            var request = {
+                UserId: userId
+            };
+
+            $scope.blockUserPromise = adminService
+                .blockUser(request)
+                .then(function (response) {
+                    $scope.users = response.data;
+                    if ($scope.users.length > 0) {
+                        $scope.selectedUser = $scope.users[0];
+                        getRemainingRoles();
+                    }
+                }, function (response) {
+                    console.error("Something went wrong while blocking user!");
+                    console.error(response);
+                });
         };
     }
 })();

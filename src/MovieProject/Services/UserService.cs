@@ -8,6 +8,7 @@ using Repositories.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace MovieProject.Services
 {
@@ -105,6 +106,16 @@ namespace MovieProject.Services
             {
                 Name = role
             });
+        }
+
+        public async Task<ICollection<UserResponse>> BlockUserAsync(UserRequest userRequest)
+        {
+            var user = await _userManager.FindByIdAsync(userRequest.UserId);
+            user.IsBlock = true;
+
+            await _userManager.UpdateAsync(user);
+
+            return await GetUsersAsync();
         }
     }
 }

@@ -11,5 +11,6 @@ namespace MovieProject.Services.Interfaces
         Task<IEnumerable<RoleResponse>> DeleteRoleAsync(RoleUserRequest roleUserRequest);
         Task<IEnumerable<RoleResponse>> AddRoleAsync(RoleUserRequest roleUserRequest);
         Task<IEnumerable<RoleResponse>> GetRemainingRolesAsync(UserRequest userRequest);
+        Task<ICollection<UserResponse>> BlockUserAsync(UserRequest userRequest);
     }
 }

@@ -2,6 +2,7 @@
 using Repositories.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using MovieProject.Models;
+using System.Linq;
 
 namespace Repositories.Repositories
 {
@@ -16,7 +17,7 @@ namespace Repositories.Repositories
 
         public async Task<ApplicationUser[]> GetUsersAsync()
         {
-            return await _userDataSet.ToArrayAsync();
+            return await _userDataSet.Where(p => !p.IsBlock).ToArrayAsync();
         }
     }
 }

@@ -4,5 +4,6 @@ namespace MovieProject.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        public bool IsBlock { get; set; }
     }
 }

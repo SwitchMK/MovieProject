@@ -157,3 +157,23 @@ a {
 .icon-bar {
     background-color: gray !important;
 }
+
+.block-user-btn {
+    background-color: transparent;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid transparent;
+}
+
+.block-user-btn:hover {
+    background-color: rgb(210, 210, 210);
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.block-user-btn:active {
+    background-color: rgb(180, 180, 180);
+    border-radius: 5px;
+    border: none;
+}
