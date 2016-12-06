@@ -37,16 +37,19 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/#/" target="_self">Films</a></li>
-                    <li><a href="/#/people" target="_self">People</a></li>
-                    <li><a href="/#/screenings" target="_self">Screenings</a></li>
-                    @if (User.IsInRole("Editor") || User.IsInRole("Administrator"))
+                    @if (User.IsInRole("User"))
                     {
-                        <li><a href="/#/screenings/management" target="_self">Screenings management</a></li>
-                    }
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <li><a href="/#/admin" target="_self">Administrator</a></li>
+                        <li><a href="/#/" target="_self">Films</a></li>
+                        <li><a href="/#/people" target="_self">People</a></li>
+                        <li><a href="/#/screenings" target="_self">Screenings</a></li>
+                        @if (User.IsInRole("Editor"))
+                        {
+                            <li><a href="/#/screenings/management" target="_self">Screenings management</a></li>
+                        }
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <li><a href="/#/admin" target="_self">Administration</a></li>
+                        }
                     }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")

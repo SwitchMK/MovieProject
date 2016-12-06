@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MovieProject.Controllers.WebApi
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     [Route("api/[controller]/[action]")]
     public class PeopleController : Controller
     {

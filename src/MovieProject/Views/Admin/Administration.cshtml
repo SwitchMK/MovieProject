@@ -2,7 +2,7 @@
     Layout = null;
 }
 
-<div class="row" ng-init="getUsers()" cg-busy="[ getUsersPromise ]">
+<div class="row" ng-init="getUsers()" cg-busy="[ getUsersPromise, deleteRolePromise, addRolePromise, getRemainingRolesPromise ]">
     <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="panel panel-default">
             <div class="panel-heading" style="background-color: black; opacity: 0.75;">
@@ -48,7 +48,7 @@
                             <md-divider></md-divider>
                             <div ng-show="remainingRoles.length > 0">
                                 <md-content class="md-padding">
-                                    <md-select ng-model="roleToAdd" style="z-index: 100000 !important">
+                                    <md-select ng-model="roleToAdd">
                                         <md-option ng-repeat="role in remainingRoles" value="{{ role.name }}">{{ role.name }}</md-option>
                                     </md-select>
                                 </md-content>

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MovieProject.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     public class FilmController : Controller
     {
         public IActionResult Films()

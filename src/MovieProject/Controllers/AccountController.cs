@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MovieProject.Models;
 using MovieProject.Models.AccountViewModels;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MovieProject.Controllers
 {
@@ -12,15 +13,18 @@ namespace MovieProject.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger _logger;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _signInManager = signInManager;
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
@@ -79,9 +83,14 @@ namespace MovieProject.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var role = await _roleManager.FindByNameAsync("User");
                 var result = await _userManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
+                    if (role != null)
+                        await _userManager.AddToRoleAsync(user, role.Name);
+
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToLocal(returnUrl);

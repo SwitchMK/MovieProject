@@ -18,12 +18,9 @@
                         getRemainingRoles();
                     }
                 }, function (response) {
+                    console.error("Something went wrong while getting list of users!");
+                    console.error(response);
                 });
-        };
-
-        $scope.selectUser = function (user) {
-            $scope.selectedUser = user;
-            getRemainingRoles();
         };
 
         $scope.deleteRole = function (roleName) {
@@ -32,15 +29,13 @@
                 UserId: $scope.selectedUser.id
             };
 
-            $scope.deleteRolePromise = adminService
-                .deleteRole(request)
-                .then(function (response) {
-                    $scope.selectedUser.roles = response.data;
-                    getRemainingRoles();
-                }, function (response) {
-                });
+            if (roleName == "Administrator") {
+                showConfirm(request);
+            } else {
+                deleteRole(request);
+            }
         };
-
+        
         $scope.addRole = function () {
             var request = {
                 RoleName: $scope.roleToAdd,
@@ -53,6 +48,25 @@
                     $scope.selectedUser.roles = response.data;
                     getRemainingRoles();
                 }, function (response) {
+                    console.error("Something went wrong while adding new role!");
+                    console.error(response);
+                });
+        };
+
+        $scope.selectUser = function (user) {
+            $scope.selectedUser = user;
+            getRemainingRoles();
+        };
+
+        var deleteRole = function (request) {
+            $scope.deleteRolePromise = adminService
+                .deleteRole(request)
+                .then(function (response) {
+                    $scope.selectedUser.roles = response.data;
+                    getRemainingRoles();
+                }, function (response) {
+                    console.error("Something went wrong while deleting role!");
+                    console.error(response);
                 });
         };
 
@@ -68,7 +82,21 @@
                     if ($scope.remainingRoles.length > 0)
                         $scope.roleToAdd = $scope.remainingRoles[0].name;
                 }, function (response) {
+                    console.error("Something went wrong while getting roles for user!");
+                    console.error(response);
                 });
+        };
+
+        var showConfirm = function (request) {
+            var confirm = $mdDialog.confirm()
+                .title('Are your sure, you would like to detach administrator role?')
+                .textContent('This user will be limited to her rights after deleting this role.')
+                .ok('Yes')
+                .cancel('Cancel');
+
+            $mdDialog.show(confirm).then(function () {
+                deleteRole(request);
+            });
         };
     }
 })();
