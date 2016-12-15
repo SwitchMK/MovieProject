@@ -10,9 +10,10 @@ namespace MovieProject.Models.AccountViewModels
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=(?:.*?[!@#$%\^&*\(\)\-_+=;:'""\/\[\]{},.<>|`]){1}).{6,}$",
+            ErrorMessage = "The password must contain at least 6 characters, at least one in upper case, at least one number and at least one special character.")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]

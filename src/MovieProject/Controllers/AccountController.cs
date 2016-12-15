@@ -46,9 +46,9 @@ namespace MovieProject.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user.IsBlock)
+                if (user == null || user.IsBlock)
                 {
-                    ModelState.AddModelError(string.Empty, "This user is blocked. Try to sign in with another account.");
+                    ModelState.AddModelError(string.Empty, "This user is blocked or is not existed. Try to sign in with another account.");
                     return View(model);
                 }
 
