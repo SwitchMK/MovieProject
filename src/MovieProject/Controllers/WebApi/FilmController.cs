@@ -42,7 +42,7 @@ namespace MovieProject.Controllers.WebApi
         }
 
         [HttpPost]
-        public async Task<FullFilmDetailsResponse> RateMovie([FromBody] RateRequest rateRequest)
+        public async Task<IEnumerable<FilmListItemResponse>> RateMovie([FromBody] RateRequest rateRequest)
         {
             var userId = _userManager.GetUserId(User);
 

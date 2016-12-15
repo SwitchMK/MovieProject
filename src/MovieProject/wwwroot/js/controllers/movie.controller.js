@@ -9,7 +9,6 @@
 
     function movieController($scope, $routeParams, movieService) {
         var ratedMovieId = null;
-        var ratedMovie = null;
 
         $scope.getFilms = function () {
             $scope.getFilmsPromise = movieService
@@ -31,21 +30,23 @@
             $scope.rateMoviePromise = movieService
                 .rateMovie(rateRequest)
                 .then(function (response) {
-                    ratedMovie.personalRating = response.data.personalRating;
-                    ratedMovie.totalRating = response.data.totalRating;
+                    $scope.films = response.data;
                 });
         };
 
         $scope.selectRateableMovie = function (film) {
             ratedMovieId = film.id;
             $('#input-id').rating('update', film.personalRating);
-            ratedMovie = film;
         };
 
         $("#input-id").rating({ size: 'xs' });
 
         $('#input-id').on('rating.change', function (event, value, caption) {
             $scope.rating = value;
+        });
+
+        $('#input-id').on('rating.clear', function(event) {
+            $scope.rating = 0;
         });
     }
 })();

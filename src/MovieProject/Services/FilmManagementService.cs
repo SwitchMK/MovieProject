@@ -105,7 +105,7 @@ namespace MovieProject.Services
             return await GetFeedbacksAsync(feedbackRequest.FilmId);
         }
 
-        public async Task<FullFilmDetailsResponse> RateMovieAsync(RateRequest rateRequest, string userId)
+        public async Task<IEnumerable<FilmListItemResponse>> RateMovieAsync(RateRequest rateRequest, string userId)
         {
             var personalRating = await _filmRatingRepository.GetPersonalRatingAsync(rateRequest.FilmId, userId);
 
@@ -114,7 +114,7 @@ namespace MovieProject.Services
             else
                 await _filmRatingRepository.AddRatingAsync(rateRequest.FilmId, userId, rateRequest.Rating);
 
-            return await GetFilmDetailsAsync(rateRequest.FilmId, userId);
+            return await GetFilmsAsync(userId);
         }
 
         private FullFilmDetailsResponse GetFullFilmDetailsResponse(

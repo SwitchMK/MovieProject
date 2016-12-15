@@ -9,7 +9,7 @@ namespace MovieProject.Services.Interfaces
     {
         Task<IEnumerable<FilmListItemResponse>> GetFilmsAsync(string userId);
         Task<FullFilmDetailsResponse> GetFilmDetailsAsync(long filmId, string userId);
-        Task<FullFilmDetailsResponse> RateMovieAsync(RateRequest rateRequest, string userId);
+        Task<IEnumerable<FilmListItemResponse>> RateMovieAsync(RateRequest rateRequest, string userId);
         Task<IEnumerable<FeedbackResponse>> LeaveFeedbackAsync(FeedbackRequest feedbackRequest, string userId);
         Task<IEnumerable<FeedbackResponse>> GetFeedbacksAsync(long filmId);
     }
