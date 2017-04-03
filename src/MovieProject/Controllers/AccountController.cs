@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 using MovieProject.Models;
 using MovieProject.Models.AccountViewModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Entities.Contexts;
 
 namespace MovieProject.Controllers
 {
@@ -90,13 +92,37 @@ namespace MovieProject.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, IsBlock = false };
-                var role = await _roleManager.FindByNameAsync("User");
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
-                    if (role != null)
-                        await _userManager.AddToRoleAsync(user, role.Name);
+                    if (!(await _roleManager.RoleExistsAsync("Administrator")))
+                    {
+                        var administratorRole = new IdentityRole("Administrator");
+                        await _roleManager.CreateAsync(administratorRole);
+                    }
+
+                    if (!(await _roleManager.RoleExistsAsync("User")))
+                    {
+                        var userRole = new IdentityRole("User");
+                        await _roleManager.CreateAsync(userRole);
+                    }
+
+                    if (!(await _roleManager.RoleExistsAsync("Editor")))
+                    {
+                        var userRole = new IdentityRole("Editor");
+                        await _roleManager.CreateAsync(userRole);
+                    }
+
+                    var admins = await _userManager.GetUsersInRoleAsync("Administrator");
+
+                    if (admins.Count == 0)
+                    {
+                        await _userManager.AddToRoleAsync(user, "Administrator");
+                        await _userManager.AddToRoleAsync(user, "Editor");
+                    }
+
+                    await _userManager.AddToRoleAsync(user, "User");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
